@@ -4,7 +4,6 @@
 <head>
     <title>Hizumi's portfolio</title>
     <style>
-        <!--
         body {
             background-color: #1a1a1a;
             color: #f8f8f8;
@@ -33,8 +32,10 @@
             margin-left: auto;
             margin-right: auto;
         }
-
-        -->
+        .product_list_outer{
+            display: inline-block;
+        }
+        
     </style>
     <meta name="viewport" content="width=device-width">
 </head>
@@ -49,11 +50,58 @@
         <li><a target="blank" href="https://twitter.com/endo_hizumi">Twitter</a></li>
         <li><a target="blank" href="https://speakerdeck.com/endohizumi">SpeakDeck</a> </li>
     </ul>
-    <ul>
-        Product<br>
-        <li><a target="blank" href="http://ws-factory.hoyo.asia/plana/">PlanOS</a></li>
-
-    </ul>
-</div>
+    <div>
+        <span style="display:block">Product</span>
+        <ul class="product_list">
+            <li class="product_list_outer">                
+                <div class="product_list_inner">
+                    <a target="blank" href="http://ws-factory.hoyo.asia/plana/">
+                        <div class="title">
+                            PlanOS
+                        </div>
+                        <div class="thumbnail">
+                            <img width="500" height="250" src="./picture/Screenshot_2019-04-06_PlanOS.png" />
+                        </div>
+                    </a>
+                </div>
+            </li>
+            <li class="product_list_outer">
+                <div class="product_list_inner">
+                <a target="blank" href="http://ws-factory.hoyo.asia/faizphone.php">
+                    <div class="title">
+                        ファイズフォン for Android
+                    </div>
+                    <div class="thumbnail">
+                        <img width=150 height="250" src="./picture/faizphone.png" />
+                    </div>
+                </a>
+                </div>
+            </li>
+            <li class="product_list_outer">
+                    <div class="product_list_inner">
+                    <a target="blank" href="http://ws-factory.hoyo.asia/wizardriver.zip">
+                        <div class="title">
+                            ウィザードライバー for Android
+                        </div>
+                        <div class="thumbnail">
+                            <img width=500 height="250" src="./picture/wizardriver.png" />
+                        </div>
+                    </a>
+                    </div>
+            </li>
+            <li class="product_list_outer">
+                    <div class="product_list_inner">
+                    <a target="blank" href="http://ws-factory.hoyo.asia/SyabetteKibat.zip">
+                        <div class="title">
+                           しゃべってキバット！
+                        </div>
+                        <div class="thumbnail">
+                            <img width=500 height="250" src="./picture/syabettekivat.png" />
+                        </div>
+                    </a>
+                    </div>
+            </li>
+        </ul>
+    </div>
 
 </html>
