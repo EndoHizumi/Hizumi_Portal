@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 
 class TestWebCrawler(TestCase):
     def setUp(self):
+        self.maxDiff = None
         self.html_source = ""
         with open("./public/index.html") as f:
             self.html_source = f.read()
@@ -33,8 +34,14 @@ class TestGetPage(TestWebCrawler):
         self.assertEqual(h2_tags, [expect_tags.h1])
 
 class TestGetElementByClass(TestWebCrawler):
-    def test_get_element_by_id(self):
-        h2_tags = web_crawler.get_element_by_class(html_text=self.html_source, target_element="thumbnail")
+    # def test_get_element_by_id(self):
+    #     h2_tags = web_crawler.get_element_by_class(html_text=self.html_source, target_element="thumbnail")
+    #     expect_tags = BeautifulSoup(
+    #         '<div class="thumbnail"><img width="500" height="250" src="./picture/Screenshot_2019-04-06_PlanOS.png" /></div>', 'html.parser')
+    #     self.assertEqual(h2_tags, [expect_tags.h1])
+    
+    def test_get_element_by_id_once(self):
+        h2_tags = web_crawler.get_element_by_class(html_text=self.html_source, target_element="thumbnail", index=0)
         expect_tags = BeautifulSoup(
             '<div class="thumbnail"><img width="500" height="250" src="./picture/Screenshot_2019-04-06_PlanOS.png" /></div>', 'html.parser')
-        self.assertEqual(h2_tags, [expect_tags.h1])
+        self.assertEqual(str(h2_tags), str(expect_tags))
