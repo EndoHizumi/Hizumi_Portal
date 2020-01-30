@@ -34,14 +34,14 @@ class TestGetPage(TestWebCrawler):
         self.assertEqual(h2_tags, [expect_tags.h1])
 
 class TestGetElementByClass(TestWebCrawler):
-    # def test_get_element_by_id(self):
-    #     h2_tags = web_crawler.get_element_by_class(html_text=self.html_source, target_element="thumbnail")
-    #     expect_tags = BeautifulSoup(
-    #         '<div class="thumbnail"><img width="500" height="250" src="./picture/Screenshot_2019-04-06_PlanOS.png" /></div>', 'html.parser')
-    #     self.assertEqual(h2_tags, [expect_tags.h1])
-    
     def test_get_element_by_id_once(self):
-        h2_tags = web_crawler.get_element_by_class(html_text=self.html_source, target_element="thumbnail", index=0)
+        h2_tags = web_crawler.get_element_by_class(html_text=self.html_source, target_element="thumbnail", index=0).img
         expect_tags = BeautifulSoup(
-            '<div class="thumbnail"><img width="500" height="250" src="./picture/Screenshot_2019-04-06_PlanOS.png" /></div>', 'html.parser')
+            '<img width="500" height="250" src="./picture/Screenshot_2019-04-06_PlanOS.png" />', 'html.parser')
         self.assertEqual(str(h2_tags), str(expect_tags))
+
+    def test_get_element_by_id(self):
+        # 個数を数える
+        h2_tags = web_crawler.get_element_by_class(html_text=self.html_source, target_element="thumbnail")
+        self.assertEqual(h2_tags, )
+    
