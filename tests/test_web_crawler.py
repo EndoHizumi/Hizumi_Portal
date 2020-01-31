@@ -32,10 +32,10 @@ class TestGetPage(TestWebCrawler):
 
     @mock.patch("requests.get")
     def test_get_page_argument_url(self, mock_get):
-        res = Mock(spec=Response)
-        res.json.return_value = self.html_source
+        res = Response()
         res.headers = {'Content-Type': 'text/html'}
         res.status_code = 200
+        res._content = b'{"body":{self.html_source}}'
         mock_get.return_value = res
 
         h2_tags = web_crawler.get_page(url="http://localhost:8080/", target_element={"tag": "h1"})
