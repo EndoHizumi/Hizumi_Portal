@@ -8,7 +8,7 @@ class TestWebCrawler(TestCase):
     def setUp(self):
         self.maxDiff = None
         self.html_source = \
-            '''
+'''
 <h1>Heisei-Riders</h1>
 <div class="heisei-rider">kuuga</div>
 <div class="heisei-rider">agito</div>
