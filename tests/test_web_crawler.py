@@ -11,6 +11,22 @@ class TestWebCrawler(TestCase):
         with open("./public/index.html") as f:
             self.html_source = f.read()
 
+class TestGetElementByClass(TestWebCrawler):
+    def test_クラス要素を指定してタグを取得できる(self):
+        actual_tags = web_crawler.get_element_by_class(html_text= self.html_source, target_element='title')
+        expect_texts = ['PlanOS','ファイズフォン for Android', 'ウィザードライバー for Android', 'しゃべってキバット！']
+        self.assertEqual([actual_text.text.strip() for actual_text in actual_tags], expect_texts)
+
+    @mock.patch('web_crawler.web_crawler.get_page')
+    def test_正しく要素指定を後続の引数に渡せる_URL編(self,mock_getpage):
+        web_crawler.get_element_by_class('http://localhost', '' , target_element='title')
+        mock_getpage.assert_called_with('http://localhost', '', {'class_': 'title'})
+
+    @mock.patch('web_crawler.web_crawler.get_page')
+    def test_正しく要素指定を後続の引数に渡せる_htmlソース編(self,mock_getpage):
+        web_crawler.get_element_by_class('', self.html_source , target_element='title')
+        mock_getpage.assert_called_with('', self.html_source, {'class_': 'title'})
+
 
 class TestGetElement(TestWebCrawler):
 
