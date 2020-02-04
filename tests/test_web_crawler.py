@@ -22,52 +22,51 @@ class TestWebCrawler(TestCase):
 class TestGetElementByClass(TestWebCrawler):
     def test_クラス要素を指定してタグを取得できる(self):
         actual_tags = web_crawler.get_element_by_class(
-            html_text=self.html_source, target_element='title')
-        expect_texts = ['PlanOS', 'ファイズフォン for Android',
-                        'ウィザードライバー for Android', 'しゃべってキバット！']
+            html_text=self.html_source, target_element='heisei-rider')
+        expect_texts = ['kuuga', 'agito']
         self.assertEqual([actual_text.text.strip()
                           for actual_text in actual_tags], expect_texts)
 
     @mock.patch('web_crawler.web_crawler.get_page')
     def test_正しく要素指定を後続の引数に渡せる_URL編(self, mock_getpage):
         web_crawler.get_element_by_class(
-            'http://localhost', '', target_element='title')
+            'http://localhost', '', target_element='heisei-rider')
         mock_getpage.assert_called_with(
-            'http://localhost', '', {'class_': 'title'})
+            'http://localhost', '', {'class_': 'heisei-rider'})
 
     @mock.patch('web_crawler.web_crawler.get_page')
     def test_正しく要素指定を後続の引数に渡せる_htmlソース編(self, mock_getpage):
         web_crawler.get_element_by_class(
-            '', self.html_source, target_element='title')
+            '', self.html_source, target_element='heisei-rider')
         mock_getpage.assert_called_with(
-            '', self.html_source, {'class_': 'title'})
+            '', self.html_source, {'class_': 'heisei-rider'})
 
 
 class TestGetElementById(TestWebCrawler):
     def test_ID要素を指定してタグを取得できる(self):
         actual_tags = web_crawler.get_element_by_id(
-            html_text=self.html_source, target_element='')
-        expect_texts = ['']
+            html_text=self.html_source, target_element='id-rider2003')
+        expect_texts = ['ryuki']
         self.assertEqual([actual_text.text.strip()
                           for actual_text in actual_tags], expect_texts)
 
     @mock.patch('web_crawler.web_crawler.get_page')
     def test_正しく要素指定を後続の引数に渡せる_URL編(self, mock_getpage):
         web_crawler.get_element_by_id(
-            'http://localhost', '', target_element='')
-        mock_getpage.assert_called_with('http://localhost', '', {'id': ''})
+            'http://localhost', '', target_element='id-rider2003')
+        mock_getpage.assert_called_with('http://localhost', '', {'id': 'id-rider2003'})
 
     @mock.patch('web_crawler.web_crawler.get_page')
     def test_正しく要素指定を後続の引数に渡せる_htmlソース編(self, mock_getpage):
-        web_crawler.get_element_by_id('', self.html_source, target_element='')
-        mock_getpage.assert_called_with('', self.html_source, {'id': ''})
+        web_crawler.get_element_by_id('', self.html_source, target_element='id-rider2003')
+        mock_getpage.assert_called_with('', self.html_source, {'id': 'id-rider2003'})
 
 
 class TestGetElementByTag(TestWebCrawler):
     def test_タグ名を指定してタグを取得できる(self):
         actual_tags = web_crawler.get_element_by_tag(
             html_text=self.html_source, target_element='h1')
-        expect_texts = ['Hizumi\'s portfolio']
+        expect_texts = ['Heisei-Riders']
         self.assertEqual([actual_text.text.strip()
                           for actual_text in actual_tags], expect_texts)
 
