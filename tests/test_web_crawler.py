@@ -27,6 +27,22 @@ class TestGetElementByClass(TestWebCrawler):
         web_crawler.get_element_by_class('', self.html_source , target_element='title')
         mock_getpage.assert_called_with('', self.html_source, {'class_': 'title'})
 
+class TestGetElementById(TestWebCrawler):
+    def test_ID要素を指定してタグを取得できる(self):
+        actual_tags = web_crawler.get_element_by_id(html_text= self.html_source, target_element='')
+        expect_texts = ['']
+        self.assertEqual([actual_text.text.strip() for actual_text in actual_tags], expect_texts)
+
+    @mock.patch('web_crawler.web_crawler.get_page')
+    def test_正しく要素指定を後続の引数に渡せる_URL編(self,mock_getpage):
+        web_crawler.get_element_by_id('http://localhost', '' , target_element='')
+        mock_getpage.assert_called_with('http://localhost', '', {'id': ''})
+
+    @mock.patch('web_crawler.web_crawler.get_page')
+    def test_正しく要素指定を後続の引数に渡せる_htmlソース編(self,mock_getpage):
+        web_crawler.get_element_by_id('', self.html_source , target_element='')
+        mock_getpage.assert_called_with('', self.html_source, {'id': ''})
+
 
 class TestGetElement(TestWebCrawler):
 
