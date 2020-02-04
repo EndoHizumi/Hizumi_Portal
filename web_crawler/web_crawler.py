@@ -6,17 +6,17 @@ from typing import Dict
 
 def get_element_by_class_once(url: str = "", html_text: str = "", target_element: str = "") -> bs4.element.Tag:
     _target_element = {"class_": target_element}
-    return get_page(url, html_text, _target_element, True)
+    return get_page(url, html_text, _target_element, True)[0]
 
 
 def get_element_by_id_once(url: str = "", html_text: str = "", target_element: str = "") -> bs4.element.Tag:
     _target_element = {"id": target_element}
-    return get_page(url, html_text, _target_element, True)
+    return get_page(url, html_text, _target_element, True)[0]
 
 
 def get_element_by_tag_once(url: str = "", html_text: str = "", target_element: str = "") -> bs4.element.Tag:
     _target_element = {"tag": target_element}
-    return get_page(url, html_text, _target_element, True)
+    return get_page(url, html_text, _target_element, True)[0]
 
 
 def get_element_by_class(url: str = "", html_text: str = "", target_element: str = "") -> bs4.element.ResultSet:
