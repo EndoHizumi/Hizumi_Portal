@@ -2,9 +2,9 @@
   <v-app>
     <v-app-bar app color="black" dark dense>
       <v-toolbar-title class="font-weight-bold">{{state}}</v-toolbar-title>
-      <ul class="d-flex align-center" v-for="item in lists[state]" :key="item">
+      <ul class="d-flex align-center" v-for="item in menuItems[state]" :key="item.name">
         <li>
-          <v-btn text class="title">{{item}}</v-btn>
+          <v-btn text class="title" active-class="hoge" v-bind:to="item.linkto">{{item.name}}</v-btn>
         </li>
       </ul>
 
@@ -17,42 +17,37 @@
       </v-btn>
     </v-app-bar>
     <v-main>
-      <HelloWorld />
-    </v-main>
-    <div class="launcher">
-      <span class="caption" v-bind:style="styleObject[hoveredIcon]">{{hoveredIcon}}</span>
-      <div class="dock">
-        <v-btn
-          v-for="menuItem in menuItems"
-          :key="menuItem.name"
-          v-bind:id="menuItem.name"
-          v-on:mouseover="hoveredIcon=menuItem.name"
-          v-on:mouseleave="hoveredIcon=''"
-          v-on:click="state=menuItem.name"
-          text
-        >
-          <v-icon x-large>{{menuItem.icon}}</v-icon>
-        </v-btn>
+      <router-view></router-view>
+      <div class="launcher">
+        <span class="caption" v-bind:style="styleObject[hoveredIcon]">{{hoveredIcon}}</span>
+        <div class="dock">
+          <v-btn
+            v-for="dockItem in dockItems"
+            v-bind:key="dockItem.name"
+            v-bind:id="dockItem.name"
+            v-on:mouseover="hoveredIcon=dockItem.name"
+            v-on:mouseleave="hoveredIcon=''"
+            v-on:click="state=dockItem.name"
+            text
+            :to="linktoList[dockItem.name]"
+          >
+            <v-icon x-large>{{dockItem.icon}}</v-icon>
+          </v-btn>
+        </div>
       </div>
-    </div>
+    </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
-
 export default {
   name: "App",
-
-  components: {
-    HelloWorld,
-  },
   data: function () {
     return {
       draw: false,
       state: "Home",
       hoveredIcon: "",
-      menuItems: [
+      dockItems: [
         { name: "Profile", icon: "mdi-account" },
         { name: "Product", icon: "mdi-application" },
         { name: "Slide", icon: "mdi-presentation" },
@@ -60,10 +55,20 @@ export default {
         { name: "Twitter", icon: "mdi-twitter" },
         { name: "Home", icon: "mdi-home" },
       ],
-      lists: {
-        Profile: ["自己紹介", "実績"],
-        Product: ["ゲーム", "ツール", "Webサイト"],
-        Writing: ["Qiita", "Blog", "技術同人誌"],
+      menuItems: {
+        Profile: [
+          { name: "自己紹介", linkto: { name: "about" } },
+          { name: "実績", linkto: { name: "about" } },
+        ],
+        Product: [
+          { name: "webアプリ", linkto: { name: "webapps" } },
+          { name: "フレームアームズ", linkto: { name: "framearms" } },
+        ],
+        Writing: [
+          { name: "Qiita", linkto: { name: "about" } },
+          { name: "Blog", linkto: { name: "about" } },
+          { name: "技術同人誌", linkto: { name: "about" } },
+        ],
       },
       styleObject: {
         Profile: { left: "28px" },
@@ -73,13 +78,21 @@ export default {
         Twitter: { left: "318px" },
         Home: { left: "388px" },
       },
+      linktoList: {
+        Profile: { name: "about" },
+        Product: { name: "webapp" },
+        Slide: { name: "slide" },
+        Writing: { name: "writing" },
+        Twitter: { name: "twitter" },
+        Home: { name: "home" },
+      },
     };
   },
 };
 </script>
 
 <style>
-#app{
+#app {
   background-color: #1a1a1a;
   color: #f8f8f8;
 }
